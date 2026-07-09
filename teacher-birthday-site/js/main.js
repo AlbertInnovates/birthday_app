@@ -69,7 +69,7 @@ async function toggleMusic() {
     musicToggle.setAttribute("aria-pressed", "true");
     musicToggle.setAttribute("aria-label", "Doğum günü müziğini duraklat");
   } catch (error) {
-    showToast("Müzik için assets/sounds/birthday-tune.mp3 dosyasına bir melodi ekleyin.");
+    showToast("Müzik dosyası yüklenemedi. Lütfen assets/sounds/Connie Francis - Pretty Little Baby.mp3 dosyasını kontrol edin.");
   }
 }
 
