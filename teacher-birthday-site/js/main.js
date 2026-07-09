@@ -1,3 +1,5 @@
+const audio = document.querySelector("#birthdayAudio");
+const musicToggle = document.querySelector("#musicToggle");
 const confettiLayer = document.querySelector("#confettiLayer");
 const signatureGrid = document.querySelector("#signatureGrid");
 const videoPlaceholder = document.querySelector(".video-placeholder");
@@ -46,6 +48,39 @@ function renderSignatures() {
     signature.setAttribute("aria-label", name || "Boş imza alanı");
     signature.textContent = name;
     signatureGrid.appendChild(signature);
+  });
+}
+
+async function toggleMusic() {
+  if (!audio) return;
+
+  if (!audio.paused) {
+    audio.pause();
+    musicToggle.classList.remove("is-playing");
+    musicToggle.setAttribute("aria-pressed", "false");
+    musicToggle.setAttribute("aria-label", "Doğum günü müziğini çal");
+    return;
+  }
+
+  try {
+    audio.volume = 0.42;
+    audio.currentTime = 0;
+    await audio.play();
+    musicToggle.classList.add("is-playing");
+    musicToggle.setAttribute("aria-pressed", "true");
+    musicToggle.setAttribute("aria-label", "Doğum günü müziğini duraklat");
+  } catch (error) {
+    showToast("Müzik başlatılamadı. Dosya yolunu kontrol edin.");
+  }
+}
+
+musicToggle.addEventListener("click", toggleMusic);
+
+if (audio) {
+  audio.addEventListener("ended", () => {
+    musicToggle.classList.remove("is-playing");
+    musicToggle.setAttribute("aria-pressed", "false");
+    musicToggle.setAttribute("aria-label", "Doğum günü müziğini çal");
   });
 }
 
