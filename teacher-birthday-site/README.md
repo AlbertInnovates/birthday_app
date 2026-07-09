@@ -1,53 +1,34 @@
-# Teacher's Birthday Surprise Site
+# Class 304 Birthday Card
 
-This site is a single-page static surprise site built with HTML/CSS/JS. No backend, build tools, or installation required; it can be deployed directly to GitHub Pages.
+A single-page digital birthday greeting for Esra Teacher, built as a static HTML/CSS/JS page.
 
-## Changes Before Deployment
+## Edit Before Sharing
 
-1. **Teacher's name**
-   - Search for the text `Öğretmenim` on lines 6, 36, and 54 of `index.html`.
-   - Replace the `Öğretmenim` text in the page title, the main surprise text on the entry screen, and the hero title with the actual name.
+1. **Teacher name**
+   - The page currently uses `Esra Teacher`.
+   - Edit it in `index.html` if you want a different spelling.
 
-2. **Photo**
-   - Replace the following file with the actual photo:
-   - `assets/images/teacher-photo.jpg`
-   - The photo path in the HTML is on line 72 of `index.html`.
-   - If you use the same filename, you won't need to change the HTML.
+2. **Class photo**
+   - The card uses `assets/images/esra.jpeg`.
+   - Replace that file if you have a newer class photo.
 
-3. **YouTube videos**
-   - Search for `VIDEO_ID_1` and `VIDEO_ID_2` on lines 87 and 94 of `index.html`.
-   - If the YouTube link is `https://www.youtube.com/watch?v=abc123DEF45`, the embed URL should be:
-   - `https://www.youtube.com/embed/abc123DEF45`
-   - It is recommended that the videos be shorter than 1 minute.
+3. **Birthday video**
+   - The video section is currently an elegant placeholder.
+   - To add a real video, replace the `.video-placeholder` button in `index.html` with a `<video controls>` element or a YouTube/Vimeo embed.
 
-4. **Birthday sound**
-   - `assets/sounds/birthday-tune.mp3` is currently just a placeholder file.
-   - The sound path is on line 17 of `index.html`.
-   - Be sure to replace it with a real `.mp3` file before deploying.
-   - Since browsers block autoplaying audio, the music will play when the `Sürprizi Aç! 🎉` (Open the Surprise! 🎉) button on the entry screen is clicked.
+4. **Music**
+   - The music button uses `assets/sounds/birthday-tune.mp3`.
+   - The current file is empty, so add a real MP3 before sharing if you want music.
+   - Music does not autoplay; the teacher must click the music button.
 
-5. **11 student messages**
-   - All names and messages are in one place:
-   - `js/messages.js`
-   - The message array starts on line 3 of `js/messages.js`.
-   - Edit the 11 items in the `window.birthdayMessages` array.
-   - Each item has `name`, `text`, and `emoji` fields.
+5. **Classmate names**
+   - Add names in `js/messages.js`.
+   - Empty values stay as clean signature lines.
 
-6. **Favicon**
-   - If you want, replace `assets/icons/favicon.png` with a real icon.
-   - The favicon path is on line 9 of `index.html`.
+## Running Locally
 
-## Deploying to GitHub Pages
+Open `index.html` directly in a browser. No build step or installation is required.
 
-1. Create a new repository on GitHub.
-2. Upload the files from inside the `teacher-birthday-site` folder to the repository.
-3. Go to the repository settings: **Settings > Pages**.
-4. Under **Build and deployment**, select `Deploy from a branch` as the source.
-5. Choose `main` as the branch and `/root` as the folder, then save.
-6. Your GitHub Pages link will be ready in a few minutes.
+## Deploying
 
-## Notes
-
-- The site is mobile-responsive and designed to be viewed on a phone.
-- Code comments are in English; all visible text is in Turkish.
-- You can search for `TODO` in the project to find placeholder content.
+Upload the contents of this folder to GitHub Pages, Netlify, Vercel, or any static hosting service.

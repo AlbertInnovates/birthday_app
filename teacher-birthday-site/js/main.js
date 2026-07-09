@@ -1,148 +1,91 @@
-// TODO: Replace teacher name in index.html before launch.
-const introOverlay = document.querySelector("#introOverlay");
-const introCard = document.querySelector("#introCard");
-const surpriseButton = document.querySelector("#surpriseButton");
-const balloonStage = document.querySelector("#balloonStage");
-const revealTitle = document.querySelector("#revealTitle");
-const birthdayAudio = document.querySelector("#birthdayAudio");
-const messagesWall = document.querySelector("#messagesWall");
-const complimentButton = document.querySelector("#complimentButton");
-const complimentOutput = document.querySelector("#complimentOutput");
-const secretStar = document.querySelector("#secretStar");
+const audio = document.querySelector("#birthdayAudio");
+const musicToggle = document.querySelector("#musicToggle");
+const confettiLayer = document.querySelector("#confettiLayer");
+const signatureGrid = document.querySelector("#signatureGrid");
+const videoPlaceholder = document.querySelector(".video-placeholder");
 
-const colors = ["#ff6f61", "#ffd54f", "#68d8b0", "#2ab7ca", "#d63c6b", "#9b7bff"];
-const noteColors = ["#fff4bd", "#c9f5df", "#ffd5df", "#d7efff", "#ffe0b5", "#e5dcff"];
-const tilts = ["-3.5deg", "2.4deg", "-1.8deg", "3.1deg", "-2.6deg", "1.4deg"];
-const compliments = [
-  "Öğretmenim, sabrınızın şarjı yüzde yüz ve hızlı doluyor!",
-  "Bugün sınıfın resmi kararı: En havalı öğretmen sizsiniz.",
-  "Siz anlatınca konu bile kendini toparlayıp anlaşılır oluyor.",
-  "Kahkahanız zil sesi olsa teneffüs hiç bitmesin isterdik.",
-  "Sürpriz seven öğretmene sürpriz yapan sınıf: görev başarıyla tamamlandı!"
-];
+const confettiColors = ["#b85b55", "#d8a0a0", "#c8a15c", "#f3d7c6", "#7e6b61"];
+const signatureSlots = 12;
 
-function renderMessages() {
-  const messages = window.birthdayMessages || [];
+function showToast(message) {
+  const existingToast = document.querySelector(".toast");
+  if (existingToast) existingToast.remove();
 
-  messagesWall.innerHTML = messages.map((message, index) => {
-    const color = noteColors[index % noteColors.length];
-    const tilt = tilts[index % tilts.length];
-
-    return `
-      <article class="note-card" style="--note-color: ${color}; --tilt: ${tilt};">
-        <h3>${message.name}</h3>
-        <p>${message.text}</p>
-        <span class="note-emoji" aria-hidden="true">${message.emoji}</span>
-      </article>
-    `;
-  }).join("");
+  const toast = document.createElement("p");
+  toast.className = "toast";
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  window.setTimeout(() => toast.remove(), 2700);
 }
 
-function createBalloon(index) {
-  const balloon = document.createElement("span");
-  const size = 54 + Math.random() * 44;
-  const left = 6 + Math.random() * 88;
-  const duration = 2.7 + Math.random() * 1.2;
+function createConfetti(amount = 72) {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion) return;
 
-  balloon.className = "balloon";
-  balloon.style.setProperty("--x", `${left}%`);
-  balloon.style.setProperty("--size", `${size}px`);
-  balloon.style.setProperty("--duration", `${duration}s`);
-  balloon.style.setProperty("--color", colors[index % colors.length]);
-  balloonStage.appendChild(balloon);
-
-  if (index % 2 === 0) {
-    window.setTimeout(() => popBalloon(balloon), 1050 + Math.random() * 900);
-  }
-
-  window.setTimeout(() => balloon.remove(), 4300);
-}
-
-function popBalloon(balloon) {
-  if (!balloon.isConnected) return;
-
-  const rect = balloon.getBoundingClientRect();
-  balloon.classList.add("pop");
-  createPopBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
-  createConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2, 22);
-  window.setTimeout(() => balloon.remove(), 240);
-}
-
-function createPopBurst(x, y) {
-  const burst = document.createElement("span");
-  burst.className = "pop-burst";
-  burst.textContent = "PAT!";
-  burst.style.setProperty("--x", `${x}px`);
-  burst.style.setProperty("--y", `${y}px`);
-  document.body.appendChild(burst);
-  window.setTimeout(() => burst.remove(), 760);
-}
-
-function createConfetti(x = window.innerWidth / 2, y = window.innerHeight / 2, amount = 42) {
   for (let index = 0; index < amount; index += 1) {
     const piece = document.createElement("span");
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 90 + Math.random() * 210;
-
-    piece.className = "confetti-piece";
-    piece.style.setProperty("--x", `${x}px`);
-    piece.style.setProperty("--y", `${y}px`);
-    piece.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
-    piece.style.setProperty("--dy", `${Math.sin(angle) * distance + 180}px`);
-    piece.style.setProperty("--duration", `${0.95 + Math.random() * 0.9}s`);
-    piece.style.setProperty("--color", colors[index % colors.length]);
-    document.body.appendChild(piece);
-    window.setTimeout(() => piece.remove(), 1900);
+    piece.className = "confetti";
+    piece.style.setProperty("--left", `${Math.random() * 100}%`);
+    piece.style.setProperty("--drift", `${-80 + Math.random() * 160}px`);
+    piece.style.setProperty("--spin", `${180 + Math.random() * 540}deg`);
+    piece.style.setProperty("--duration", `${1.9 + Math.random() * 1.2}s`);
+    piece.style.setProperty("--color", confettiColors[index % confettiColors.length]);
+    confettiLayer.appendChild(piece);
+    window.setTimeout(() => piece.remove(), 3300);
   }
 }
 
-function launchSurprise() {
-  surpriseButton.disabled = true;
-  introCard.classList.add("is-gone");
+function renderSignatures() {
+  const names = Array.isArray(window.class304Signatures) ? window.class304Signatures : [];
+  const slots = Math.max(signatureSlots, names.length);
 
-  // Browsers may reject the placeholder file until a real mp3 is added.
-  birthdayAudio.volume = 0.85;
-  birthdayAudio.play().catch(() => {
-    console.info("Birthday audio placeholder could not play. Replace assets/sounds/birthday-tune.mp3 before launch.");
+  signatureGrid.replaceChildren();
+
+  Array.from({ length: slots }, (_, index) => {
+    const name = names[index] || "";
+    const signature = document.createElement("span");
+    signature.className = name ? "signature-name" : "signature-name is-empty";
+    signature.setAttribute("aria-label", name || "Empty signature space");
+    signature.textContent = name;
+    signatureGrid.appendChild(signature);
   });
+}
 
-  for (let index = 0; index < 18; index += 1) {
-    window.setTimeout(() => createBalloon(index), index * 120);
+async function toggleMusic() {
+  if (!audio) return;
+
+  if (!audio.paused) {
+    audio.pause();
+    musicToggle.classList.remove("is-playing");
+    musicToggle.setAttribute("aria-pressed", "false");
+    musicToggle.setAttribute("aria-label", "Play birthday music");
+    return;
   }
 
-  window.setTimeout(() => {
-    revealTitle.classList.add("is-visible");
-    createConfetti(window.innerWidth / 2, window.innerHeight / 2, 90);
-  }, 2850);
-
-  window.setTimeout(() => {
-    introOverlay.classList.add("is-hidden");
-    document.body.classList.add("surprise-opened");
-  }, 5000);
+  try {
+    audio.volume = 0.48;
+    await audio.play();
+    musicToggle.classList.add("is-playing");
+    musicToggle.setAttribute("aria-pressed", "true");
+    musicToggle.setAttribute("aria-label", "Pause birthday music");
+  } catch (error) {
+    showToast("Add a birthday melody to assets/sounds/birthday-tune.mp3 to enable music.");
+  }
 }
 
-function wireExtras() {
-  document.querySelectorAll(".confetti-trigger").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const rect = event.currentTarget.getBoundingClientRect();
-      createConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2, 58);
-    });
-  });
+musicToggle.addEventListener("click", toggleMusic);
 
-  complimentButton.addEventListener("click", () => {
-    const compliment = compliments[Math.floor(Math.random() * compliments.length)];
-    complimentOutput.textContent = compliment;
-    createConfetti(window.innerWidth / 2, window.innerHeight * 0.72, 30);
-  });
-
-  secretStar.addEventListener("click", () => {
-    secretStar.classList.add("is-silly");
-    complimentOutput.textContent = "Gizli yıldız bulundu! Bugünkü sözlü notu: bol kahkaha.";
-    createConfetti(window.innerWidth - 70, 130, 46);
-    window.setTimeout(() => secretStar.classList.remove("is-silly"), 950);
+if (audio) {
+  audio.addEventListener("ended", () => {
+    musicToggle.classList.remove("is-playing");
+    musicToggle.setAttribute("aria-pressed", "false");
+    musicToggle.setAttribute("aria-label", "Play birthday music");
   });
 }
 
-surpriseButton.addEventListener("click", launchSurprise);
-renderMessages();
-wireExtras();
+videoPlaceholder.addEventListener("click", () => {
+  showToast("Replace this placeholder with your recorded birthday video when it is ready.");
+});
+
+renderSignatures();
+window.setTimeout(() => createConfetti(86), 320);

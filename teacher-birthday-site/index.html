@@ -1,132 +1,78 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>İyi ki Doğdunuz Öğretmenim!</title>
-  <!-- TODO: Replace teacher name in the title above before launch. -->
-  <!-- TODO: Replace the placeholder favicon before launch if you want a custom icon. -->
+  <title>Happy Birthday, Esra Teacher</title>
+  <meta name="description" content="A warm birthday greeting from Class 304.">
   <link rel="icon" type="image/png" href="assets/icons/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- TODO: Replace assets/sounds/birthday-tune.mp3 with a real birthday song before launch. -->
-  <audio id="birthdayAudio" src="assets/sounds/birthday-tune.mp3" preload="auto"></audio>
+  <audio id="birthdayAudio" src="assets/sounds/birthday-tune.mp3" preload="none"></audio>
 
-  <div class="intro-overlay" id="introOverlay" aria-label="Doğum günü sürprizi başlangıcı">
-    <div class="intro-sparkles" aria-hidden="true">
-      <span>✦</span>
-      <span>🎈</span>
-      <span>✧</span>
-      <span>🎉</span>
-      <span>✦</span>
-    </div>
-    <div class="balloon-stage" id="balloonStage" aria-hidden="true"></div>
-    <div class="intro-card" id="introCard">
-      <p class="intro-kicker">Gizli görev: öğretmeni şaşırt</p>
-      <h1>Hazır mıyız?</h1>
-      <p>Bu butona basınca sınıfça sakladığımız doğum günü enerjisi serbest kalacak.</p>
-      <button class="surprise-button" id="surpriseButton" type="button">Sürprizi Aç! 🎉</button>
-    </div>
-    <div class="reveal-title" id="revealTitle" aria-live="polite">
-      <!-- TODO: Replace "Öğretmenim" with the teacher's real name. -->
-      <span>İyi ki Doğdun Öğretmenim!</span>
-      <strong>🎂</strong>
-    </div>
-  </div>
+  <button class="music-toggle" id="musicToggle" type="button" aria-label="Play birthday music" aria-pressed="false">
+    <span class="music-icon" aria-hidden="true"></span>
+  </button>
 
-  <main class="page-shell">
-    <section class="hero section-band" id="top">
-      <div class="floating-emojis" aria-hidden="true">
-        <span>🎈</span>
-        <span>🎉</span>
-        <span>🎂</span>
-        <span>🥳</span>
-        <span>❤️</span>
-        <span>✨</span>
-      </div>
-      <div class="section-inner hero-inner">
-        <p class="eyebrow">Sınıftan resmi olmayan, aşırı neşeli duyuru</p>
-        <!-- TODO: Replace "Öğretmenim" with the teacher's real name. -->
-        <h1>İyi ki Doğdun Öğretmenim!</h1>
-        <p class="hero-copy">Bugün tahtanın kalemi bizde: dersimiz kahkaha, konumuz sürpriz, yoklama ise “herkes çok seviyor” diye kapandı.</p>
-        <div class="hero-actions">
-          <button class="icon-button confetti-trigger" type="button" aria-label="Konfeti patlat">🎊</button>
-          <a class="jump-link" href="#mesajlar">Mesajlara ışınlan</a>
-        </div>
-      </div>
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+  <main class="card-page">
+    <section class="hero-section section-panel" aria-labelledby="hero-title">
+      <div class="decor decor-balloon decor-balloon-one" aria-hidden="true"></div>
+      <div class="decor decor-balloon decor-balloon-two" aria-hidden="true"></div>
+      <div class="decor decor-ribbon" aria-hidden="true"></div>
+      <span class="decor decor-star decor-star-one" aria-hidden="true">&#10022;</span>
+      <span class="decor decor-star decor-star-two" aria-hidden="true">&#10023;</span>
+      <span class="decor decor-flower" aria-hidden="true">&#10047;</span>
+      <span class="decor decor-cake" aria-hidden="true">&#127874;</span>
+      <span class="decor decor-dondurma" aria-hidden="true">&#127846;</span>
+
+      <p class="eyebrow">From Class 304</p>
+      <h1 id="hero-title">Happy Birthday<br><span>Esra Teacher</span></h1>
+      <p class="hero-subtitle">Thank you for helping us discover the beauty of the Turkish language.</p>
     </section>
 
-    <section class="photo-section section-band">
-      <div class="section-inner two-column">
+    <section class="message-section section-panel" aria-labelledby="message-title">
+      <p class="eyebrow">Our Message</p>
+      <h2 id="message-title">With gratitude</h2>
+      <p class="personal-message">
+        When we first entered your class, Turkish felt far away from us. With your patience, care, and high expectations, you helped us grow word by word. Thank you for believing in our progress, guiding us with dedication, and making this journey meaningful. We are grateful to finish this course with memories we will always keep.
+      </p>
+    </section>
+
+    <section class="photo-section section-panel" aria-labelledby="photo-title">
+      <p class="eyebrow">A Memory</p>
+      <h2 id="photo-title">Our class, our journey</h2>
+      <figure class="photo-card">
+        <img src="assets/images/esra.jpeg" alt="Class 304 together with Esra Teacher in the classroom">
+        <figcaption>Our unforgettable journey together.</figcaption>
+      </figure>
+    </section>
+
+    <section class="video-section section-panel" aria-labelledby="video-title">
+      <p class="eyebrow">Birthday Video</p>
+      <article class="video-memory-card">
         <div>
-          <p class="eyebrow">Günün yıldızı</p>
-          <h2>Bu kareye alkış, bu öğretmene pasta yakışır!</h2>
-          <p>Fotoğraf şimdilik temsili. Gerçek fotoğraf gelince burası “vay be, sürprize bak” seviyesine çıkacak.</p>
+          <h2 id="video-title">A Special Message From Class 304</h2>
+          <p>A small recorded memory, made with love and gratitude.</p>
         </div>
-        <figure class="photo-frame">
-          <!-- TODO: Replace assets/images/teacher-photo.jpg with the real teacher photo. -->
-          <img src="assets/images/esra.jpeg" alt="Öğretmenimizin doğum günü fotoğrafı">
-          <figcaption>Fotoğraf modu: öğretmenimiz yine yakalandı, yine efsane. 📸</figcaption>
-        </figure>
-      </div>
+        <button class="video-placeholder" type="button" aria-label="Play the birthday video">
+          <span class="play-button" aria-hidden="true"></span>
+          <span class="video-note">Birthday video will appear here</span>
+        </button>
+      </article>
     </section>
 
-    <section class="videos-section section-band">
-      <div class="section-inner">
-        <p class="eyebrow">Mini sinema kuşağı</p>
-        <h2>Bir dakikadan kısa, etkisi bütün gün süren videolar</h2>
-        <div class="video-grid">
-          <article class="video-block">
-            <h3>Sürpriz Video 1 🎬</h3>
-            <div class="video-wrap">
-              <!-- TODO: Replace VIDEO_ID_1 with the real YouTube video ID. Example: https://www.youtube.com/embed/abc123DEF45 -->
-              <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" title="Sürpriz Video 1" allowfullscreen></iframe>
-            </div>
-          </article>
-          <article class="video-block">
-            <h3>Sürpriz Video 2 🍿</h3>
-            <div class="video-wrap">
-              <!-- TODO: Replace VIDEO_ID_2 with the real YouTube video ID. Example: https://www.youtube.com/embed/abc123DEF45 -->
-              <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Sürpriz Video 2" allowfullscreen></iframe>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="messages-section section-band" id="mesajlar">
-      <div class="section-inner">
-        <p class="eyebrow">Mesaj panosu</p>
-        <h2>11 kişilik sevgi, kahkaha ve bol ünlemli doğum günü duvarı</h2>
-        <div class="corkboard" id="messagesWall" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <section class="extras-section section-band">
-      <div class="section-inner extras-grid">
-        <div>
-          <p class="eyebrow">Bonus sürprizler</p>
-          <h2>Biraz daha kutlama, çünkü azı bize yakışmaz</h2>
-          <p>Konfeti butonu sınırsızdır. Gizli yıldız ise yakalanmayı bekler.</p>
-        </div>
-        <div class="fun-panel">
-          <button class="party-button confetti-trigger" type="button">Konfeti yağdır! 🎊</button>
-          <button class="party-button" id="complimentButton" type="button">Öğretmen iltifatı üret ✨</button>
-          <button class="secret-star" id="secretStar" type="button" aria-label="Gizli sürpriz yıldız">⭐</button>
-          <p class="compliment-output" id="complimentOutput">Bugünün notu: sınıfça çok şanslıyız.</p>
-        </div>
-      </div>
+    <section class="signature-section section-panel" aria-labelledby="signature-title">
+      <p class="closing-line">With love and gratitude,</p>
+      <h2 id="signature-title">Class 304 <span aria-hidden="true">&#10084;</span></h2>
+      <div class="signature-grid" id="signatureGrid" aria-label="Classmate names"></div>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <p>Sizi çok seviyoruz öğretmenimiz! 💛</p>
-    <small>Bu sürpriz sınıfın kahkaha komitesi tarafından hazırlandı.</small>
-  </footer>
 
   <script src="js/messages.js"></script>
   <script src="js/main.js"></script>
