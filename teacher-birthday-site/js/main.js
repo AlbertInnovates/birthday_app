@@ -6,6 +6,12 @@ const videoPlaceholder = document.querySelector(".video-placeholder");
 
 const confettiColors = ["#b85b55", "#d8a0a0", "#c8a15c", "#f3d7c6", "#7e6b61"];
 const signatureSlots = 12;
+const audioErrorMessages = {
+  1: "Müzik oynatma işlemi durduruldu.",
+  2: "Müzik dosyası ağ nedeniyle yüklenemedi.",
+  3: "Müzik dosyası çözümlenemedi. Lütfen MP3 dosyasını yeniden dışa aktarın.",
+  4: "Tarayıcı bu müzik dosyasını desteklemiyor."
+};
 
 function showToast(message) {
   const existingToast = document.querySelector(".toast");
@@ -64,18 +70,25 @@ async function toggleMusic() {
 
   try {
     audio.volume = 0.48;
+    audio.load();
     await audio.play();
     musicToggle.classList.add("is-playing");
     musicToggle.setAttribute("aria-pressed", "true");
     musicToggle.setAttribute("aria-label", "Doğum günü müziğini duraklat");
   } catch (error) {
-    showToast("Müzik dosyası yüklenemedi. Lütfen assets/sounds/Connie Francis - Pretty Little Baby.mp3 dosyasını kontrol edin.");
+    const errorCode = audio.error ? audio.error.code : 0;
+    showToast(audioErrorMessages[errorCode] || "Müzik başlatılamadı. Lütfen tekrar tıklayın.");
   }
 }
 
 musicToggle.addEventListener("click", toggleMusic);
 
 if (audio) {
+  audio.addEventListener("error", () => {
+    const errorCode = audio.error ? audio.error.code : 0;
+    showToast(audioErrorMessages[errorCode] || "Müzik dosyası yüklenemedi.");
+  });
+
   audio.addEventListener("ended", () => {
     musicToggle.classList.remove("is-playing");
     musicToggle.setAttribute("aria-pressed", "false");
