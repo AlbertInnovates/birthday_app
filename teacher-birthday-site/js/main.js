@@ -45,7 +45,7 @@ function renderSignatures() {
     const name = names[index] || "";
     const signature = document.createElement("span");
     signature.className = name ? "signature-name" : "signature-name is-empty";
-    signature.setAttribute("aria-label", name || "Empty signature space");
+    signature.setAttribute("aria-label", name || "Boş imza alanı");
     signature.textContent = name;
     signatureGrid.appendChild(signature);
   });
@@ -58,7 +58,7 @@ async function toggleMusic() {
     audio.pause();
     musicToggle.classList.remove("is-playing");
     musicToggle.setAttribute("aria-pressed", "false");
-    musicToggle.setAttribute("aria-label", "Play birthday music");
+    musicToggle.setAttribute("aria-label", "Doğum günü müziğini çal");
     return;
   }
 
@@ -67,9 +67,9 @@ async function toggleMusic() {
     await audio.play();
     musicToggle.classList.add("is-playing");
     musicToggle.setAttribute("aria-pressed", "true");
-    musicToggle.setAttribute("aria-label", "Pause birthday music");
+    musicToggle.setAttribute("aria-label", "Doğum günü müziğini duraklat");
   } catch (error) {
-    showToast("Add a birthday melody to assets/sounds/birthday-tune.mp3 to enable music.");
+    showToast("Müzik için assets/sounds/birthday-tune.mp3 dosyasına bir melodi ekleyin.");
   }
 }
 
@@ -79,12 +79,12 @@ if (audio) {
   audio.addEventListener("ended", () => {
     musicToggle.classList.remove("is-playing");
     musicToggle.setAttribute("aria-pressed", "false");
-    musicToggle.setAttribute("aria-label", "Play birthday music");
+    musicToggle.setAttribute("aria-label", "Doğum günü müziğini çal");
   });
 }
 
 videoPlaceholder.addEventListener("click", () => {
-  showToast("Replace this placeholder with your recorded birthday video when it is ready.");
+  showToast("Hazır olduğunda bu alanı kaydettiğiniz doğum günü videosuyla değiştirin.");
 });
 
 renderSignatures();
