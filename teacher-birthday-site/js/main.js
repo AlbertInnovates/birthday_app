@@ -2,7 +2,6 @@ const audio = document.querySelector("#birthdayAudio");
 const musicToggle = document.querySelector("#musicToggle");
 const confettiLayer = document.querySelector("#confettiLayer");
 const signatureGrid = document.querySelector("#signatureGrid");
-const videoPlaceholder = document.querySelector(".video-placeholder");
 
 const confettiColors = ["#b85b55", "#d8a0a0", "#c8a15c", "#f3d7c6", "#7e6b61"];
 const signatureSlots = 12;
@@ -83,10 +82,6 @@ if (audio) {
     musicToggle.setAttribute("aria-label", "Doğum günü müziğini çal");
   });
 }
-
-videoPlaceholder.addEventListener("click", () => {
-  showToast("Hazır olduğunda bu alanı kaydettiğiniz doğum günü videosuyla değiştirin.");
-});
 
 renderSignatures();
 window.setTimeout(() => createConfetti(86), 320);
